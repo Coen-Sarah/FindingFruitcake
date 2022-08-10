@@ -19,15 +19,15 @@ public class AnimationComponent extends Component {
 
     public AnimationComponent() {
         int tilePixels = 16;
-        idleLeft = new AnimationChannel(FXGL.image("playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 12, 17);
-        idleRight = new AnimationChannel(FXGL.image("playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 0, 5);
-        idleUp = new AnimationChannel(FXGL.image("playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 6, 11);
-        idleDown = new AnimationChannel(FXGL.image("playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 18, 23);
+        idleLeft = new AnimationChannel(FXGL.image("player/playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 12, 17);
+        idleRight = new AnimationChannel(FXGL.image("player/playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 0, 5);
+        idleUp = new AnimationChannel(FXGL.image("player/playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 6, 11);
+        idleDown = new AnimationChannel(FXGL.image("player/playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 18, 23);
 
-        walkLeft = new AnimationChannel(FXGL.image("playerWalk.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 12, 17);
-        walkRight = new AnimationChannel(FXGL.image("playerWalk.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 0, 5);
-        walkUp = new AnimationChannel(FXGL.image("playerWalk.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 6, 11);
-        walkDown = new AnimationChannel(FXGL.image("playerWalk.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 18, 23);
+        walkLeft = new AnimationChannel(FXGL.image("player/playerWalk.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 12, 17);
+        walkRight = new AnimationChannel(FXGL.image("player/playerWalk.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 0, 5);
+        walkUp = new AnimationChannel(FXGL.image("player/playerWalk.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 6, 11);
+        walkDown = new AnimationChannel(FXGL.image("player/playerWalk.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 18, 23);
 
         texture = new AnimatedTexture(idleDown);
     }
@@ -40,15 +40,14 @@ public class AnimationComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        entity.translateX(horizontalSpeed * tpf);
+        /*entity.translateX(horizontalSpeed * tpf);
         entity.translateY(verticalSpeed * tpf);
-        /*if(speed == 0){
+        if(speed == 0){
             texture.loopAnimationChannel(idleUp);
         }*/
     }
 
     public void moveRight() {
-        System.out.println("right");
         horizontalSpeed = 50;
         verticalSpeed = 0;
         if (texture.getAnimationChannel() != walkRight) {
@@ -57,7 +56,6 @@ public class AnimationComponent extends Component {
     }
 
     public void idleRight() {
-        System.out.println("idle right");
         horizontalSpeed = 0;
         verticalSpeed = 0;
         if (texture.getAnimationChannel() != idleRight) {
@@ -66,7 +64,6 @@ public class AnimationComponent extends Component {
     }
 
     public void moveLeft() {
-        System.out.println("left");
         horizontalSpeed = -50;
         verticalSpeed = 0;
         if (texture.getAnimationChannel() != walkLeft) {
@@ -75,7 +72,6 @@ public class AnimationComponent extends Component {
     }
 
     public void idleLeft() {
-        System.out.println("idle left");
         horizontalSpeed = 0;
         verticalSpeed = 0;
         if (texture.getAnimationChannel() != idleLeft) {
@@ -83,7 +79,6 @@ public class AnimationComponent extends Component {
         }
     }
     public void moveUp() {
-        System.out.println("up");
         horizontalSpeed = 0;
         verticalSpeed = -50;
         if (texture.getAnimationChannel() != walkUp) {
@@ -92,7 +87,6 @@ public class AnimationComponent extends Component {
     }
 
     public void idleUp() {
-        System.out.println("idle up");
         horizontalSpeed = 0;
         verticalSpeed = 0;
         if (texture.getAnimationChannel() != idleUp) {
@@ -101,7 +95,6 @@ public class AnimationComponent extends Component {
     }
 
     public void moveDown() {
-        System.out.println("down");
         horizontalSpeed = 0;
         verticalSpeed = 50;
         if (texture.getAnimationChannel() != walkDown) {
@@ -110,7 +103,6 @@ public class AnimationComponent extends Component {
     }
 
     public void idleDown() {
-        System.out.println("idle Down");
         horizontalSpeed = 0;
         verticalSpeed = 0;
         if (texture.getAnimationChannel() != idleDown) {
