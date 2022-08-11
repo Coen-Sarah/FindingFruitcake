@@ -4,16 +4,23 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.physics.*;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyDef;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
+import com.example.findingfruitcake.model.CookBook;
+import com.example.findingfruitcake.model.FoodItem;
+import com.example.findingfruitcake.model.Inventory;
 import com.example.findingfruitcake.model.Player;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
+
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class BasicGame extends GameApplication {
@@ -112,10 +119,25 @@ public class BasicGame extends GameApplication {
                 player.getAnimation().idleDown();
             }
         }, KeyCode.S);
+        FXGL.getInput().addAction(new UserAction("Enter") {
+            @Override
+            protected void onActionEnd() {
+
+                ArrayList<Entity> entities = (ArrayList<Entity>) getGameWorld().getEntitiesInRange(player.getPlayerPickupRange());
+
+                entities.forEach(entity -> {
+                    if(entity.isType(EntityType.FOOD_ITEM)) {
+                        FoodItem food = CookBook.getFoodByName(entity.getProperties().getString("name"));
+                        Inventory.addFoodToInventory(food);
+                    }
+                });
+            }
+        }, KeyCode.ENTER);
     }
 
     @Override
     protected void initGame() {
+        CookBook.getAllFoods();
         PhysicsComponent physics = new PhysicsComponent();
         physics.setFixtureDef(new FixtureDef().friction(0).density(0.1f));
         BodyDef bd = new BodyDef();
@@ -128,6 +150,12 @@ public class BasicGame extends GameApplication {
         getGameWorld().getEntities().get(6).setZIndex(1);
         getGameWorld().getEntities().get(7).setZIndex(1);
         getGameWorld().getEntities().get(8).setZIndex(1);
+
+
+        Rectangle rectangle = new Rectangle(100,100);
+        getGameScene().addUINode(rectangle);
+        getGameScene().clearUINodes();
+
         player = new Player(physics);
     }
 
@@ -136,12 +164,13 @@ public class BasicGame extends GameApplication {
         settings.setDeveloperMenuEnabled(true);
         settings.setWidth(windowWidth);
         settings.setHeight(windowHeight);
-        settings.setTitle("Basic Game App");
+        settings.setTitle("Finding Fruitcake: A Stolen Supper Story");
         settings.setVersion("0.1");
     }
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
 }

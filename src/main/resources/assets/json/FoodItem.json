@@ -1,0 +1,86 @@
+[{
+  "name": "Bowl of Cereal",
+  "description": "It's a bowl. With both cereal and milk in it.",
+  "foodType": ["MAIN"],
+  "isFound": "false"
+}, {
+  "name": "Bread",
+  "description": "Bread, not sliced, but still pretty great.",
+  "foodType": ["Side", "Ingredient"],
+  "isFound": "false"
+},{
+  "name": "Brownie",
+  "description": "A room temperature brownie. But still better than no brownie",
+  "foodType": ["Dessert"],
+  "isFound": "false"
+},{
+  "name": "Cereal",
+  "description": "Cereal, can be eaten dry if you're sad. Unfortunately doing so will probably make you sadder.",
+  "foodType": ["Main", "Ingredient"],
+  "isFound": "false"
+},{
+  "name": "Cookies",
+  "description": "Chocolate chip cookies. Hopefully, they could be oatmeal raisin.",
+  "foodType": ["Dessert"],
+  "isFound": "false"
+},{
+  "name": "Giant Gummy Bear",
+  "description": "Probably shouldn't eat the whole thing at one time. But there's nothing stopping you.",
+  "foodType": ["Main", "Desert" ,"Joke"],
+  "isFound": "false"
+},{
+  "name": "Honeycomb",
+  "description": "Good for Crunch, just have to pick the wax out of your teeth.",
+  "foodType": ["Side", "Joke"],
+  "isFound": "false"
+},{
+  "name": "Milk",
+  "description": "Got Milk? Yes.",
+  "foodType": ["Drink", "Ingredient"],
+  "isFound": "false"
+},{
+  "name": "Peanut Butter",
+  "description": "One half of a well known sandwich. Can also be used to make other things.",
+  "foodType": ["Ingredient"],
+  "isFound": "false"
+},{
+  "name": "Pumpkin Pie",
+  "description": "A pie, made of pumpkins.",
+  "foodType": ["Desert"],
+  "isFound": "false"
+},{
+  "name": "Saki",
+  "description": "Saki, a specific and delicious type of sushi.",
+  "foodType": ["Main"],
+  "isFound": "false"
+},{
+  "name": "Ribs",
+  "description": "Meat on a stick with a built in stick",
+  "foodType": ["Main"],
+  "isFound": "false"
+},{
+  "name": "Sandwich",
+  "description": "Two pieces of bread and pretty much anything you want inside.",
+  "foodType": ["Main"],
+  "isFound": "false"
+},{
+  "name": "StrawberryJam",
+  "description": "Jam made of strawberries, can be used to make at least one thing.",
+  "foodType": ["Ingredient"],
+  "isFound": "false"
+},{
+  "name": "Waffle",
+  "description": "Waffles, the geometrically superior breakfast food. Also great for dinner.",
+  "foodType": ["Main"],
+  "isFound": "false"
+},{
+  "name": "Whiskey",
+  "description": "The cure for what ails you... Until tomorrow morning.",
+  "foodType": ["DRINK"],
+  "isFound": "false"
+},{
+  "name": "WhiteEgg",
+  "description": "It's an egg. What else do you want me to say?",
+  "foodType": ["INGREDIENT"],
+  "isFound": "false"
+}]

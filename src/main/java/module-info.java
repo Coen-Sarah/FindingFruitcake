@@ -15,12 +15,15 @@ module com.example.findingfruitcake {
     requires com.almasb.fxgl.core;
     requires com.almasb.fxgl.all;
     requires com.almasb.fxgl.scene;
+    requires com.google.gson;
 
     opens com.example.findingfruitcake to javafx.fxml;
+    opens com.example.findingfruitcake.model to com.google.gson;
 
-    opens assets.textures.food to com.almasb.fxgl.all;
     opens assets.textures.player to com.almasb.fxgl.all;
+    opens assets.textures.food to com.almasb.fxgl.all;
     opens assets.levels to com.almasb.fxgl.all;
+    opens assets.json to com.almasb.fxgl.all;
     
     exports com.example.findingfruitcake;
 
