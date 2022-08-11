@@ -5,10 +5,11 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
+import javafx.animation.Animation;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
 
-public class AnimationComponent extends Component {
+public class PlayerAnimationComponent extends Component {
 
     private int verticalSpeed = 0;
     private int horizontalSpeed = 0;
@@ -17,7 +18,7 @@ public class AnimationComponent extends Component {
     private AnimationChannel idleLeft, idleRight, idleUp, idleDown;
     private AnimationChannel walkLeft, walkRight, walkUp, walkDown;
 
-    public AnimationComponent() {
+    public PlayerAnimationComponent() {
         int tilePixels = 16;
         idleLeft = new AnimationChannel(FXGL.image("player/playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 12, 17);
         idleRight = new AnimationChannel(FXGL.image("player/playerIdle.png"), 24, tilePixels, tilePixels*2, Duration.seconds(1), 0, 5);
@@ -40,11 +41,7 @@ public class AnimationComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        /*entity.translateX(horizontalSpeed * tpf);
-        entity.translateY(verticalSpeed * tpf);
-        if(speed == 0){
-            texture.loopAnimationChannel(idleUp);
-        }*/
+
     }
 
     public void moveRight() {
@@ -108,5 +105,18 @@ public class AnimationComponent extends Component {
         if (texture.getAnimationChannel() != idleDown) {
             texture.loopAnimationChannel(idleDown);
         }
+    }
+
+    public String getCurrentDirection(){
+        if(texture.getAnimationChannel() == idleLeft || texture.getAnimationChannel() == walkLeft){
+            return "Left";
+        } else if(texture.getAnimationChannel() == idleRight || texture.getAnimationChannel() == walkRight){
+            return "Right";
+        } else if(texture.getAnimationChannel() == idleUp || texture.getAnimationChannel() == walkUp){
+            return "Up";
+        } else if(texture.getAnimationChannel() == idleDown || texture.getAnimationChannel() == walkDown){
+            return "Down";
+        }
+        return "";
     }
 }

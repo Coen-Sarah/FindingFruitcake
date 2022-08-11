@@ -1,0 +1,5 @@
+{
+  "name;": "Bowl of Cereal",
+  "description;": "It's a bowl. With both cereal and milk in it.",
+  "foodType;": ["MAIN"]
+}

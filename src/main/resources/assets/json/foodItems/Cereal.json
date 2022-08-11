@@ -1,0 +1,5 @@
+{
+  "name;": "Cereal",
+  "description;": "Cereal, can be eaten dry if you're sad. Unfortunately doing so will probably make you sadder.",
+  "foodType;": ["Main", "Ingredient"]
+}

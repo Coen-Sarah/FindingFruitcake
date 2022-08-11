@@ -1,0 +1,5 @@
+{
+  "name;": "Milk",
+  "description;": "Got Milk? Yes.",
+  "foodType;": ["Drink", "Ingredient"]
+}

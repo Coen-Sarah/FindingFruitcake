@@ -1,0 +1,5 @@
+{
+  "name;": "Bread",
+  "description;": "Bread, not sliced, but still pretty great.",
+  "foodType;": ["Side", "Ingredient"]
+}

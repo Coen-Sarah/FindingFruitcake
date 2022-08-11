@@ -5,11 +5,10 @@ import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.example.findingfruitcake.model.FoodItem;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
@@ -29,7 +28,6 @@ public class MapFactory implements EntityFactory {
 
     @Spawns("FoodItem")
     public Entity newFoodItem(SpawnData data){
-
         String spriteName = "food/" + data.get("name") + ".png";
         Image image = getAssetLoader().loadImage(spriteName);
         double scale = 16 / image.getWidth();
@@ -38,12 +36,11 @@ public class MapFactory implements EntityFactory {
                 .type(EntityType.FOOD_ITEM)
                 .view(spriteName)
                 .scale(scale, scale)
-                .bbox(new HitBox(data.get("name"),new Point2D(4,4),BoundingShape.box(8 / scale, 8 / scale)))
+                .bbox(new HitBox(data.get("name"),new Point2D(4,4), BoundingShape.box(8 / scale, 8 / scale)))
                 .with(new CollidableComponent(true))
                 .zIndex(2)
                 .anchorFromCenter()
                 .build();
-
         return food;
     }
 

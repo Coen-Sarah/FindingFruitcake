@@ -1,0 +1,5 @@
+{
+  "name;": "StrawberryJam",
+  "description;": "Jam made of strawberries, can be used to make at least one thing.",
+  "foodType;": ["Ingredient"]
+}

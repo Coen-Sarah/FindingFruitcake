@@ -10,6 +10,7 @@ import com.almasb.fxgl.physics.*;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyDef;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
+import com.example.findingfruitcake.model.Player;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 
@@ -21,7 +22,8 @@ public class BasicGame extends GameApplication {
     private int tileSize = 16;
     private int windowHeight = tileSize * 25;
     private int windowWidth = tileSize * 30;
-    private Entity player;
+
+    private Player player;
 
     @Override
     protected void initPhysics() {
@@ -52,62 +54,62 @@ public class BasicGame extends GameApplication {
         FXGL.getInput().addAction(new UserAction("Right") {
             @Override
             protected void onAction() {
-                player.getComponent(PhysicsComponent.class).setVelocityX(SPEED);
-                player.getComponent(PhysicsComponent.class).setVelocityY(0);
-                player.getComponent(AnimationComponent.class).moveRight();
+                player.getPhysics().setVelocityX(SPEED);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().moveRight();
             }
 
             @Override
             protected void onActionEnd() {
-                player.getComponent(PhysicsComponent.class).setVelocityX(0);
-                player.getComponent(PhysicsComponent.class).setVelocityY(0);
-                player.getComponent(AnimationComponent.class).idleRight();
+                player.getPhysics().setVelocityX(0);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().idleRight();
             }
         }, KeyCode.D);
         FXGL.getInput().addAction(new UserAction("Left") {
             @Override
             protected void onAction() {
-                player.getComponent(PhysicsComponent.class).setVelocityX(-SPEED);
-                player.getComponent(PhysicsComponent.class).setVelocityY(0);
-                player.getComponent(AnimationComponent.class).moveLeft();
+                player.getPhysics().setVelocityX(-SPEED);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().moveLeft();
             }
 
             @Override
             protected void onActionEnd() {
-                player.getComponent(PhysicsComponent.class).setVelocityX(0);
-                player.getComponent(PhysicsComponent.class).setVelocityY(0);
-                player.getComponent(AnimationComponent.class).idleLeft();
+                player.getPhysics().setVelocityX(0);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().idleLeft();
             }
         }, KeyCode.A);
         FXGL.getInput().addAction(new UserAction("Up") {
 
             @Override
             protected void onAction() {
-                player.getComponent(PhysicsComponent.class).setVelocityX(0);
-                player.getComponent(PhysicsComponent.class).setVelocityY(-SPEED);
-                player.getComponent(AnimationComponent.class).moveUp();
+                player.getPhysics().setVelocityX(0);
+                player.getPhysics().setVelocityY(-SPEED);
+                player.getAnimation().moveUp();
             }
 
             @Override
             protected void onActionEnd() {
-                player.getComponent(PhysicsComponent.class).setVelocityX(0);
-                player.getComponent(PhysicsComponent.class).setVelocityY(0);
-                player.getComponent(AnimationComponent.class).idleUp();
+                player.getPhysics().setVelocityX(0);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().idleUp();
             }
         }, KeyCode.W);
         FXGL.getInput().addAction(new UserAction("Down") {
             @Override
             protected void onAction() {
-                player.getComponent(PhysicsComponent.class).setVelocityX(0);
-                player.getComponent(PhysicsComponent.class).setVelocityY(SPEED);
-                player.getComponent(AnimationComponent.class).moveDown();
+                player.getPhysics().setVelocityX(0);
+                player.getPhysics().setVelocityY(SPEED);
+                player.getAnimation().idleDown();
             }
 
             @Override
             protected void onActionEnd() {
-                player.getComponent(PhysicsComponent.class).setVelocityX(0);
-                player.getComponent(PhysicsComponent.class).setVelocityY(0);
-                player.getComponent(AnimationComponent.class).idleDown();
+                player.getPhysics().setVelocityX(0);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().idleDown();
             }
         }, KeyCode.S);
     }
@@ -126,14 +128,7 @@ public class BasicGame extends GameApplication {
         getGameWorld().getEntities().get(6).setZIndex(1);
         getGameWorld().getEntities().get(7).setZIndex(1);
         getGameWorld().getEntities().get(8).setZIndex(1);
-        player = FXGL.entityBuilder()
-                .type(EntityType.PLAYER)
-                .at(135, 135)
-                .with(physics)
-                .with(new AnimationComponent())
-                .bbox(new HitBox("PlayerHitBox", new Point2D(0,16) , BoundingShape.box(12, 16)))
-                .with(new CollidableComponent(true))
-                .buildAndAttach();
+        player = new Player(physics);
     }
 
     @Override
