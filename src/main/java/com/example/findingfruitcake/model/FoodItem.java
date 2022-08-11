@@ -66,5 +66,8 @@ public class FoodItem {
         isFound = true;
     }
 
+    public String toString(){
+        return name;
+    }
 }
 

@@ -24,7 +24,7 @@
   "foodType": ["Dessert"],
   "isFound": "false"
 },{
-  "name": "Giant Gummy Bear",
+  "name": "GiantGummyBear",
   "description": "Probably shouldn't eat the whole thing at one time. But there's nothing stopping you.",
   "foodType": ["Main", "Desert" ,"Joke"],
   "isFound": "false"

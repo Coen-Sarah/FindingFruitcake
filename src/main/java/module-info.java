@@ -20,6 +20,7 @@ module com.example.findingfruitcake {
     opens com.example.findingfruitcake to javafx.fxml;
     opens com.example.findingfruitcake.model to com.google.gson;
 
+    opens assets.textures to com.almasb.fxgl.all;
     opens assets.textures.player to com.almasb.fxgl.all;
     opens assets.textures.food to com.almasb.fxgl.all;
     opens assets.levels to com.almasb.fxgl.all;

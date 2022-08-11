@@ -11,16 +11,12 @@ import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 import com.example.findingfruitcake.model.CookBook;
 import com.example.findingfruitcake.model.FoodItem;
-import com.example.findingfruitcake.model.Inventory;
+import com.example.findingfruitcake.model.PlayerBag;
 import com.example.findingfruitcake.model.Player;
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
-import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class BasicGame extends GameApplication {
@@ -128,11 +124,23 @@ public class BasicGame extends GameApplication {
                 entities.forEach(entity -> {
                     if(entity.isType(EntityType.FOOD_ITEM)) {
                         FoodItem food = CookBook.getFoodByName(entity.getProperties().getString("name"));
-                        Inventory.addFoodToInventory(food);
+                        PlayerBag.addFoodToInventory(food);
+                        entity.removeFromWorld();
                     }
                 });
             }
         }, KeyCode.ENTER);
+        FXGL.getInput().addAction(new UserAction("Inventory") {
+            @Override
+            protected void onActionEnd() {
+                if(UIViewer.getActiveUI().equals(UIViewer.DEFAULT)){
+                    UIViewer.showInventory();
+                } else {
+                    UIViewer.hideInventory();
+                }
+
+            }
+        }, KeyCode.I);
     }
 
     @Override
@@ -150,11 +158,6 @@ public class BasicGame extends GameApplication {
         getGameWorld().getEntities().get(6).setZIndex(1);
         getGameWorld().getEntities().get(7).setZIndex(1);
         getGameWorld().getEntities().get(8).setZIndex(1);
-
-
-        Rectangle rectangle = new Rectangle(100,100);
-        getGameScene().addUINode(rectangle);
-        getGameScene().clearUINodes();
 
         player = new Player(physics);
     }

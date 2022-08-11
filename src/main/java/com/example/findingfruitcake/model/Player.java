@@ -3,6 +3,7 @@ package com.example.findingfruitcake.model;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.components.CollidableComponent;
+import com.almasb.fxgl.inventory.Inventory;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
@@ -10,8 +11,6 @@ import com.example.findingfruitcake.EntityType;
 import com.example.findingfruitcake.PlayerAnimationComponent;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-
-import java.util.ArrayList;
 
 public class Player{
     Entity player;
@@ -25,6 +24,7 @@ public class Player{
                 .bbox(new HitBox("PlayerHitBox", new Point2D(0,16) , BoundingShape.box(12, 16)))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
+
     }
 
     public Rectangle2D getPlayerPickupRange(){
