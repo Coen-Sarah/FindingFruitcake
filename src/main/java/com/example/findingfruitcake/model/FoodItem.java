@@ -1,22 +1,40 @@
 package com.example.findingfruitcake.model;
 
-import com.google.gson.*;
+import com.almasb.fxgl.dsl.FXGL;
+import com.google.gson.annotations.Expose;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class FoodItem {
     String name;
+    String fileName;
+    Image sprite;
+    ImageView spriteView;
     String description;
     ArrayList<FoodType> foodType;
-    boolean isFound = false;
+    private final BooleanProperty foundProperty = new SimpleBooleanProperty(false);
+
+    Lighting lighting = new Lighting(new Light.Distant(45, 90, Color.BLACK));
+    ColorAdjust bright = new ColorAdjust(0, 1, 1, 1);
 
     public FoodItem(){
-
+        lighting.setContentInput(bright);
+        lighting.setSurfaceScale(0.0);
     }
 
     public FoodItem(String name, String description, ArrayList<FoodType> foodType) {
-        this.name = name;
+        lighting.setContentInput(bright);
+        lighting.setSurfaceScale(0.0);
+
+        setName(name);
         this.description = description;
         this.foodType = foodType;
     }
@@ -25,7 +43,7 @@ public class FoodItem {
         DRINK( "DRINK"),
         MAIN("MAIN"),
         SIDE("SIDE"),
-        DESERT("DESERT"),
+        DESSERT("DESSERT"),
         INGREDIENT("INGREDIENT"),
         JOKE("JOKE");
         private String name;
@@ -40,6 +58,33 @@ public class FoodItem {
 
     public void setName(String name) {
         this.name = name;
+        this.fileName = "food/" + name + ".png";
+        this.sprite = FXGL.getAssetLoader().loadImage(fileName);
+        this.spriteView = new ImageView(this.sprite);
+        this.spriteView.setPreserveRatio(true);
+        this.spriteView.setFitWidth(16);
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public Image getSprite() {
+        return sprite;
+    }
+
+    public ImageView getSpriteView() {
+        spriteView.setEffect(null);
+        return spriteView;
+    }
+
+    public ImageView getSpriteOutline(){
+        spriteView.setEffect(lighting);
+        return spriteView;
+    }
+
+    public Lighting getOutlineEffect(){
+        return lighting;
     }
 
     public String getDescription() {
@@ -58,12 +103,13 @@ public class FoodItem {
         this.foodType = foodType;
     }
 
-    public boolean getIsFound(){
-        return isFound;
+    public void setAsFound(){
+        System.out.println("TRUE");
+        foundProperty.setValue(true);
     }
 
-    public void setAsFound(){
-        isFound = true;
+    public BooleanProperty foundProperty() {
+        return foundProperty;
     }
 
     public String toString(){

@@ -4,5 +4,6 @@ public enum EntityType {
     PLAYER,
     WALL,
     FOOD_ITEM,
-    FURNITURE
+    FURNITURE,
+    MEAL_PLATE
 }

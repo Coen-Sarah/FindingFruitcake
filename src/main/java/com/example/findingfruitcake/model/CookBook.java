@@ -1,66 +1,59 @@
 package com.example.findingfruitcake.model;
 
 import com.example.findingfruitcake.util.GameDataRetriever;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CookBook {
-    static ArrayList<Recipe> allRecipes = new ArrayList<>();
-    static ArrayList<Recipe> unlockedRecipes = new ArrayList<>();
-    static ArrayList<FoodItem> allFoods = new ArrayList<>();
-    static ArrayList<FoodItem> foundFoods = new ArrayList<>();
+    private static CookBook cookbook = null;
+    static ObservableList<FoodItem> allFoods;
+    static ObservableList<Recipe> allRecipes;
 
-    public CookBook(){}
-
-    public CookBook(ArrayList<Recipe> allRecipes,
-                    ArrayList<Recipe> unlockedRecipes,
-                    ArrayList<FoodItem> allFoods,
-                    ArrayList<FoodItem> foundFoods) {
-        this.allRecipes = allRecipes;
-        this.unlockedRecipes = unlockedRecipes;
-        this.allFoods = allFoods;
-        this.foundFoods = foundFoods;
+    CookBook() {
     }
 
-    public static ArrayList<Recipe> getAllRecipes() {
+    public static CookBook getCookBook(){
+        if(cookbook == null){
+
+            cookbook = new CookBook();
+            cookbook.allFoods = FXCollections.observableArrayList(
+                    (FoodItem food) -> new Observable[] {food.foundProperty()});
+            allFoods.addAll(GameDataRetriever.getAllFoodItems());
+
+            cookbook.allRecipes = FXCollections.observableArrayList(
+                    (Recipe recipe) -> new Observable[] {recipe.foundProperty()});
+            allRecipes.addAll(GameDataRetriever.getAllRecipes());
+        }
+        return cookbook;
+    }
+
+    public ObservableList<Recipe> getAllRecipes() {
         return allRecipes;
     }
 
-    public static void setAllRecipes(ArrayList<Recipe> allRecipes) {
-        CookBook.allRecipes = allRecipes;
+
+    public Recipe getRecipeByOutput(String outputName){
+        AtomicReference<Recipe> recipe = new AtomicReference<>(new Recipe());
+        this.getAllRecipes().forEach(recipeItem -> {
+            if(recipeItem.getOutput().getName().equalsIgnoreCase(outputName)){
+                recipe.set(recipeItem);
+            }
+        });
+        return recipe.get();
     }
 
-    public static ArrayList<Recipe> getUnlockedRecipes() {
-        return unlockedRecipes;
-    }
-
-    public static void setUnlockedRecipes(ArrayList<Recipe> unlockedRecipes) {
-        CookBook.unlockedRecipes = unlockedRecipes;
-    }
-
-    public static ArrayList<FoodItem> getAllFoods() {
-        if(allFoods.size() == 0){
-            allFoods = GameDataRetriever.getAllFoodItems();
-        }
+    public ObservableList<FoodItem> getAllFoods() {
         return allFoods;
     }
 
-    public static void setAllFoods(ArrayList<FoodItem> allFoods) {
-        CookBook.allFoods = allFoods;
-    }
-
-    public static ArrayList<FoodItem> getFoundFoods() {
-        return foundFoods;
-    }
-
-    public static void setFoundFoods(ArrayList<FoodItem> foundFoods) {
-        CookBook.foundFoods = foundFoods;
-    }
-
-    public static FoodItem getFoodByName(String foodName){
+    public FoodItem getFoodByName(String foodName){
         AtomicReference<FoodItem> foodItem = new AtomicReference<>(new FoodItem());
-        CookBook.getAllFoods().forEach(food -> {
+        this.getAllFoods().forEach(food -> {
             if(food.getName().equalsIgnoreCase(foodName)){
                 foodItem.set(food);
             }

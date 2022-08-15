@@ -1,86 +1,81 @@
 [{
   "name": "Bowl of Cereal",
   "description": "It's a bowl. With both cereal and milk in it.",
-  "foodType": ["MAIN"],
-  "isFound": "false"
+  "foodType": ["MAIN"]
 }, {
   "name": "Bread",
   "description": "Bread, not sliced, but still pretty great.",
-  "foodType": ["Side", "Ingredient"],
-  "isFound": "false"
+  "foodType": ["SIDE", "INGREDIENT"]
 },{
   "name": "Brownie",
   "description": "A room temperature brownie. But still better than no brownie",
-  "foodType": ["Dessert"],
-  "isFound": "false"
+  "foodType": ["DESSERT"]
 },{
   "name": "Cereal",
   "description": "Cereal, can be eaten dry if you're sad. Unfortunately doing so will probably make you sadder.",
-  "foodType": ["Main", "Ingredient"],
-  "isFound": "false"
+  "foodType": ["MAIN", "INGREDIENT"]
 },{
   "name": "Cookies",
   "description": "Chocolate chip cookies. Hopefully, they could be oatmeal raisin.",
-  "foodType": ["Dessert"],
-  "isFound": "false"
+  "foodType": ["DESSERT"]
 },{
-  "name": "GiantGummyBear",
+  "name": "Giant Gummy Bear",
   "description": "Probably shouldn't eat the whole thing at one time. But there's nothing stopping you.",
-  "foodType": ["Main", "Desert" ,"Joke"],
-  "isFound": "false"
+  "foodType": ["MAIN", "DESSERT" ,"JOKE"]
+  
 },{
   "name": "Honeycomb",
   "description": "Good for Crunch, just have to pick the wax out of your teeth.",
-  "foodType": ["Side", "Joke"],
-  "isFound": "false"
+  "foodType": ["SIDE", "JOKE"]
+  
 },{
   "name": "Milk",
   "description": "Got Milk? Yes.",
-  "foodType": ["Drink", "Ingredient"],
-  "isFound": "false"
+  "foodType": ["DRINK", "INGREDIENT"]
+  
 },{
   "name": "Peanut Butter",
   "description": "One half of a well known sandwich. Can also be used to make other things.",
-  "foodType": ["Ingredient"],
-  "isFound": "false"
+  "foodType": ["INGREDIENT"]
+  
 },{
   "name": "Pumpkin Pie",
   "description": "A pie, made of pumpkins.",
-  "foodType": ["Desert"],
-  "isFound": "false"
+  "foodType": ["DESSERT"]
+  
 },{
   "name": "Saki",
   "description": "Saki, a specific and delicious type of sushi.",
-  "foodType": ["Main"],
-  "isFound": "false"
+  "foodType": ["MAIN"]
+  
 },{
   "name": "Ribs",
   "description": "Meat on a stick with a built in stick",
-  "foodType": ["Main"],
-  "isFound": "false"
+  "foodType": ["MAIN"]
+  
 },{
   "name": "Sandwich",
   "description": "Two pieces of bread and pretty much anything you want inside.",
-  "foodType": ["Main"],
-  "isFound": "false"
+  "foodType": ["MAIN"]
+  
 },{
-  "name": "StrawberryJam",
+  "name": "Strawberry Jam",
   "description": "Jam made of strawberries, can be used to make at least one thing.",
-  "foodType": ["Ingredient"],
-  "isFound": "false"
+  "foodType": ["INGREDIENT"]
+  
 },{
-  "name": "Waffle",
+  "name": "Waffles",
   "description": "Waffles, the geometrically superior breakfast food. Also great for dinner.",
-  "foodType": ["Main"],
-  "isFound": "false"
+  "foodType": ["MAIN"]
+  
 },{
   "name": "Whiskey",
   "description": "The cure for what ails you... Until tomorrow morning.",
-  "foodType": ["DRINK"],
-  "isFound": "false"
+  "foodType": ["DRINK"]
+  
 },{
-  "name": "WhiteEgg",
+  "name": "Egg",
   "description": "It's an egg. What else do you want me to say?",
-  "foodType": ["INGREDIENT"],
-  "isFound": "false"
+  "foodType": ["INGREDIENT"]
+  
 }]

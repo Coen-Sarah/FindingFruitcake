@@ -5,7 +5,9 @@ import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.example.findingfruitcake.model.CookBook;
 import com.example.findingfruitcake.model.FoodItem;
+import com.example.findingfruitcake.model.Meal;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -13,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
+import static com.example.findingfruitcake.model.CookBook.getCookBook;
 
 public class MapFactory implements EntityFactory {
 
@@ -28,20 +31,31 @@ public class MapFactory implements EntityFactory {
 
     @Spawns("FoodItem")
     public Entity newFoodItem(SpawnData data){
-        String spriteName = "food/" + data.get("name") + ".png";
-        Image image = getAssetLoader().loadImage(spriteName);
-        double scale = 16 / image.getWidth();
+        FoodItem food = getCookBook().getFoodByName(data.get("name"));
+        double scale = 16 / food.getSprite().getWidth();
 
-        Entity food = entityBuilder(data)
+        Entity foodEntity = entityBuilder(data)
                 .type(EntityType.FOOD_ITEM)
-                .view(spriteName)
+                .view(food.getFileName())
                 .scale(scale, scale)
                 .bbox(new HitBox(data.get("name"),new Point2D(4,4), BoundingShape.box(8 / scale, 8 / scale)))
                 .with(new CollidableComponent(true))
                 .zIndex(2)
                 .anchorFromCenter()
                 .build();
-        return food;
+        return foodEntity;
+    }
+
+    @Spawns("Plate")
+    public Entity newPlate(SpawnData data) {;
+        Entity plate = entityBuilder(data)
+                .type(EntityType.MEAL_PLATE)
+                .view(Meal.getFileName())
+                .bbox(new HitBox(data.get("name"),new Point2D(0,0), BoundingShape.box(16, 16)))
+                .scale(.5,.5)
+                .zIndex(0)
+                .build();
+        return plate;
     }
 
     @Spawns("MapExit")

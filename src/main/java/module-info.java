@@ -27,5 +27,7 @@ module com.example.findingfruitcake {
     opens assets.json to com.almasb.fxgl.all;
     
     exports com.example.findingfruitcake;
+    exports com.example.findingfruitcake.scenes;
+    opens com.example.findingfruitcake.scenes to javafx.fxml;
 
 }

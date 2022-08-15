@@ -9,15 +9,15 @@ import com.almasb.fxgl.physics.*;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyDef;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
-import com.example.findingfruitcake.model.CookBook;
-import com.example.findingfruitcake.model.FoodItem;
-import com.example.findingfruitcake.model.PlayerBag;
-import com.example.findingfruitcake.model.Player;
+import com.example.findingfruitcake.model.*;
 import javafx.scene.input.KeyCode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
+import static com.example.findingfruitcake.model.CookBook.getCookBook;
+import static com.example.findingfruitcake.model.Meal.getMeal;
 
 public class BasicGame extends GameApplication {
 
@@ -54,36 +54,14 @@ public class BasicGame extends GameApplication {
     @Override
     protected void initInput() {
 
-        FXGL.getInput().addAction(new UserAction("Right") {
-            @Override
-            protected void onAction() {
-                player.getPhysics().setVelocityX(SPEED);
-                player.getPhysics().setVelocityY(0);
-                player.getAnimation().moveRight();
-            }
+        KeyCode up = KeyCode.UP;
+        KeyCode down = KeyCode.DOWN;
+        KeyCode left = KeyCode.LEFT;
+        KeyCode right = KeyCode.RIGHT;
+        KeyCode inventory = KeyCode.I;
+        KeyCode cookBook = KeyCode.C;
+        KeyCode interact = KeyCode.ENTER;
 
-            @Override
-            protected void onActionEnd() {
-                player.getPhysics().setVelocityX(0);
-                player.getPhysics().setVelocityY(0);
-                player.getAnimation().idleRight();
-            }
-        }, KeyCode.D);
-        FXGL.getInput().addAction(new UserAction("Left") {
-            @Override
-            protected void onAction() {
-                player.getPhysics().setVelocityX(-SPEED);
-                player.getPhysics().setVelocityY(0);
-                player.getAnimation().moveLeft();
-            }
-
-            @Override
-            protected void onActionEnd() {
-                player.getPhysics().setVelocityX(0);
-                player.getPhysics().setVelocityY(0);
-                player.getAnimation().idleLeft();
-            }
-        }, KeyCode.A);
         FXGL.getInput().addAction(new UserAction("Up") {
 
             @Override
@@ -99,7 +77,7 @@ public class BasicGame extends GameApplication {
                 player.getPhysics().setVelocityY(0);
                 player.getAnimation().idleUp();
             }
-        }, KeyCode.W);
+        }, up);
         FXGL.getInput().addAction(new UserAction("Down") {
             @Override
             protected void onAction() {
@@ -114,38 +92,102 @@ public class BasicGame extends GameApplication {
                 player.getPhysics().setVelocityY(0);
                 player.getAnimation().idleDown();
             }
-        }, KeyCode.S);
-        FXGL.getInput().addAction(new UserAction("Enter") {
+        }, down);
+        FXGL.getInput().addAction(new UserAction("Left") {
+            @Override
+            protected void onAction() {
+                player.getPhysics().setVelocityX(-SPEED);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().moveLeft();
+            }
+
+            @Override
+            protected void onActionEnd() {
+                player.getPhysics().setVelocityX(0);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().idleLeft();
+            }
+        }, left);
+        FXGL.getInput().addAction(new UserAction("Right") {
+            @Override
+            protected void onAction() {
+                player.getPhysics().setVelocityX(SPEED);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().moveRight();
+            }
+
+            @Override
+            protected void onActionEnd() {
+                player.getPhysics().setVelocityX(0);
+                player.getPhysics().setVelocityY(0);
+                player.getAnimation().idleRight();
+            }
+        }, right);
+
+        FXGL.getInput().addAction(new UserAction("Interact") {
             @Override
             protected void onActionEnd() {
 
                 ArrayList<Entity> entities = (ArrayList<Entity>) getGameWorld().getEntitiesInRange(player.getPlayerPickupRange());
 
                 entities.forEach(entity -> {
-                    if(entity.isType(EntityType.FOOD_ITEM)) {
-                        FoodItem food = CookBook.getFoodByName(entity.getProperties().getString("name"));
+                    Serializable type = entity.getType();
+                    if (entity.getType() == EntityType.FOOD_ITEM) {
+                        FoodItem food = getCookBook().getFoodByName(entity.getProperties().getString("name"));
                         PlayerBag.addFoodToInventory(food);
                         entity.removeFromWorld();
+                    } else if (entity.getType() == EntityType.MEAL_PLATE) {
+                        if(!UIViewer.currentUI.equals(UIViewer.MEAL)){
+                            getMeal().setDrink(getCookBook().getFoodByName("Milk"));
+                            getMeal().setMain(getCookBook().getFoodByName("Ribs"));
+                            UIViewer.showMeal();
+                        } else {
+                            UIViewer.clearUI();
+                        }
                     }
                 });
             }
-        }, KeyCode.ENTER);
+        }, interact);
         FXGL.getInput().addAction(new UserAction("Inventory") {
             @Override
             protected void onActionEnd() {
-                if(UIViewer.getActiveUI().equals(UIViewer.DEFAULT)){
+                if(!UIViewer.getActiveUI().equals(UIViewer.INVENTORY)){
                     UIViewer.showInventory();
                 } else {
-                    UIViewer.hideInventory();
+                    UIViewer.showGameUI();
                 }
 
             }
-        }, KeyCode.I);
+        }, inventory);
+        FXGL.getInput().addAction(new UserAction("Cookbook") {
+            @Override
+            protected void onActionEnd() {
+                if(!UIViewer.getActiveUI().equals(UIViewer.COOKBOOK)){
+                    UIViewer.showCookbook();
+                } else {
+                    UIViewer.showGameUI();
+                }
+            }
+        }, cookBook);
+        FXGL.getInput().addAction(new UserAction("Cook") {
+            @Override
+            protected void onActionEnd() {
+                FoodItem bread = getCookBook().getFoodByName("Bread");
+                FoodItem jam = getCookBook().getFoodByName("Strawberry Jam");
+                if(PlayerBag.getInventory().contains(bread) && PlayerBag.getInventory().contains(jam)){
+                    FoodItem sandwich =  getCookBook().getRecipeByOutput("Sandwich").getOutput();
+                    PlayerBag.addFoodToInventory(sandwich);
+                    PlayerBag.removeFoodFromInventory(bread);
+                    PlayerBag.removeFoodFromInventory(jam);
+                }
+            }
+        }, KeyCode.V);
+
     }
 
     @Override
     protected void initGame() {
-        CookBook.getAllFoods();
+
         PhysicsComponent physics = new PhysicsComponent();
         physics.setFixtureDef(new FixtureDef().friction(0).density(0.1f));
         BodyDef bd = new BodyDef();

@@ -1,0 +1,9 @@
+[{
+  "name": "A Basic Bowl of Cereal",
+  "output": "Bowl of Cereal",
+  "ingredients": ["Cereal", "Milk"]
+}, {
+  "name": "Sandwich of Indeterminate Kind",
+  "output": "Sandwich",
+  "ingredients": ["Bread", "Strawberry Jam"]
+}]

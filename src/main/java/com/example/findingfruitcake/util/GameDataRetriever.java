@@ -22,7 +22,9 @@ public class GameDataRetriever {
 
     public static ArrayList<FoodItem> getAllFoodItems(){
         ArrayList<FoodItem> foods = new ArrayList<>();
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(FoodItem.class, new FoodItemAdaptor())
+                .create();
         Type collectionType = new TypeToken<Collection<FoodItem>>(){}.getType();
         Collection<FoodItem> foodsData;
 
@@ -37,11 +39,25 @@ public class GameDataRetriever {
 
         return foods;
     };
-    public static ArrayList<Recipe> getRecipes(){
+    public static ArrayList<Recipe> getAllRecipes() {
 
         ArrayList<Recipe> recipes = new ArrayList<>();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Recipe.class, new RecipeAdaptor())
+                .create();
+        Type collectionType = new TypeToken<Collection<Recipe>>() {
+        }.getType();
+        Collection<Recipe> recipeData;
 
+        try {
+
+            recipeData = gson.fromJson(new FileReader("src/main/resources/assets/json/Recipe.json"), collectionType);
+            recipes.addAll(recipeData);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return recipes;
-    };
+    }
 
 }
