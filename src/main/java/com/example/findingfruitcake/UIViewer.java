@@ -1,11 +1,12 @@
 package com.example.findingfruitcake;
 
 import com.almasb.fxgl.inventory.view.InventoryView;
-import com.example.findingfruitcake.model.FoodItem;
-import com.example.findingfruitcake.scenes.CookBookSubScene;
-import com.example.findingfruitcake.scenes.InventorySubScene;
-import com.example.findingfruitcake.scenes.MealSubScene;
+import com.almasb.fxgl.ui.UI;
+import com.example.findingfruitcake.controller.CookBookController;
+import com.example.findingfruitcake.controller.InventoryUIController;
+import com.example.findingfruitcake.controller.MealController;
 
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 
 public class UIViewer {
@@ -16,11 +17,6 @@ public class UIViewer {
     public static final String MEAL = "MEAL";
     public static String currentUI = DEFAULT;
 
-    private static CookBookSubScene cookbook = null;
-    private static InventorySubScene inventory = null;
-    private static MealSubScene meal = null;
-    private static InventoryView<FoodItem> inventoryView;
-
     public static void showGameUI(){
         currentUI = DEFAULT;
         clearUI();
@@ -30,8 +26,10 @@ public class UIViewer {
         currentUI = INVENTORY;
         clearUI();
 
-        InventorySubScene inventory = new InventorySubScene();
-        getGameScene().addUINode(inventory.getContentRoot());
+        InventoryUIController controller = new InventoryUIController();
+        UI ui = getAssetLoader().loadUI("inventory.fxml", controller);
+        getGameScene().addUI(ui);
+        controller.update();
 
     }
 
@@ -40,10 +38,10 @@ public class UIViewer {
         currentUI = COOKBOOK;
         clearUI();
 
-        if(cookbook == null) {
-            cookbook = new CookBookSubScene();
-        }
-        getGameScene().addUINode(cookbook.getContentRoot());
+        CookBookController controller = new CookBookController();
+        UI ui = getAssetLoader().loadUI("inventory.fxml", controller);
+        getGameScene().addUI(ui);
+        controller.update();
 
     }
 
@@ -51,10 +49,9 @@ public class UIViewer {
         currentUI = MEAL;
         clearUI();
 
-        if(meal == null) {
-            meal = new MealSubScene();
-        }
-        getGameScene().addUINode(meal.getContentRoot());
+        MealController controller = new MealController();
+        UI ui = getAssetLoader().loadUI("meal.fxml", controller);
+        getGameScene().addUI(ui);
 
     }
 

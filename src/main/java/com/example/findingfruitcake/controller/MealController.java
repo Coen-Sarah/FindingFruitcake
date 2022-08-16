@@ -1,6 +1,6 @@
-package com.example.findingfruitcake.scenes;
+package com.example.findingfruitcake.controller;
 
-import com.almasb.fxgl.scene.SubScene;
+import com.almasb.fxgl.ui.UIController;
 import com.example.findingfruitcake.FoodCell;
 import com.example.findingfruitcake.UIViewer;
 import com.example.findingfruitcake.model.FoodItem;
@@ -8,87 +8,81 @@ import com.example.findingfruitcake.model.Meal;
 import com.example.findingfruitcake.model.PlayerBag;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
 import static com.example.findingfruitcake.model.Meal.getMeal;
+import static com.example.findingfruitcake.model.Meal.getSprite;
 
-public class MealSubScene extends SubScene {
+public class MealController implements UIController {
 
+    @FXML
     GridPane root = new GridPane();
 
-    Label drink = new Label("Drink");
-    Label main = new Label("Main");
-    Label side = new Label("Side");
-    Label dessert = new Label("Dessert");
-    Label inventory = new Label("Inventory");
+    @FXML
+    StackPane drinkPane = new StackPane();
+    @FXML
+    StackPane mainPane = new StackPane();
+    @FXML
+    StackPane sidePane = new StackPane();
+    @FXML
+    StackPane dessertPane = new StackPane();
 
+    @FXML
     ImageView drinkSprite = new ImageView();
+    @FXML
     ImageView mainSprite = new ImageView();
+    @FXML
     ImageView sideSprite = new ImageView();
+    @FXML
     ImageView dessertSprite = new ImageView();
 
-    ListView<FoodItem> drinkInventory = new ListView<FoodItem>();
-    ListView<FoodItem> mainInventory = new ListView<FoodItem>();
-    ListView<FoodItem> sideInventory = new ListView<FoodItem>();
-    ListView<FoodItem> dessertInventory = new ListView<FoodItem>();
+    @FXML
+    Button keepLooking = new Button();
+    @FXML
+    Button makeDinner = new Button();
 
-    Button makeDinner = new Button("Make Dinner");
-    Button keepLooking = new Button("Keep Looking!");
+    @FXML
+    ListView<FoodItem> drinkInventory = new ListView<>();
+    @FXML
+    ListView<FoodItem> mainInventory = new ListView<>();
+    @FXML
+    ListView<FoodItem> sideInventory = new ListView<>();
+    @FXML
+    ListView<FoodItem> dessertInventory = new ListView<>();
 
-    public MealSubScene() {
+    ImageView node = new ImageView(getAssetLoader().loadImage("node.png"));
+    ImageView plate = new ImageView(getSprite());
 
-        for (int i = 0; i < 4; i++) {
+    @Override
+    public void init() {
+
+        for (int i = 0; i < 5; i++) {
             ColumnConstraints column = new ColumnConstraints();
             column.setPercentWidth(20);
-            column.setMaxWidth(getAppWidth() * .20);
             root.getColumnConstraints().add(column);
         }
-        for (int i = 0; i < 5; i++) {
-            RowConstraints row = new RowConstraints();
-            row.setPercentHeight(5);
-            if (i == 5) {
-                row.setPercentHeight(20);
-                row.setMaxHeight(getAppHeight() * .20);
-            }
-            root.getRowConstraints().add(row);
-        }
 
-        Image inventoryImage = getAssetLoader().loadImage("inventory.png");
+        node.setPreserveRatio(true);
+        node.setFitWidth(64);
 
-        this.getContentRoot().setBackground(new Background(new BackgroundImage(inventoryImage,
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        drinkPane.getChildren().add(0, createImageBackground());
+        drinkPane.getChildren().add(1, createPlateNode());
+        mainPane.getChildren().add(0, createImageBackground());
+        mainPane.getChildren().add(1, createPlateNode());
+        sidePane.getChildren().add(0, createImageBackground());
+        sidePane.getChildren().add(1, createPlateNode());
+        dessertPane.getChildren().add(0, createImageBackground());
+        dessertPane.getChildren().add(1, createPlateNode());
 
-        addGridElements();
-        addListeners();
-        setSprites();
-
-        this.getContentRoot().getChildren().add(root);
-    }
-
-    private void addGridElements() {
-        root.add(drink, 0,0);
-        root.add(main, 1,0);
-        root.add(side, 2,0);
-        root.add(dessert, 3,0);
-
-        root.add(drinkSprite, 0, 1);
-        root.add(mainSprite, 1, 1);
-        root.add(sideSprite, 2, 1);
-        root.add(dessertSprite, 3, 1);
-
-        root.add(keepLooking, 0,2,2,1);
-        root.add(makeDinner, 2,2,2,1);
         makeDinner.setVisible(false);
-
-        root.add(inventory, 0,4,1,4);
 
         drinkInventory.setCellFactory( cell -> new FoodCell<>());
         mainInventory.setCellFactory( cell -> new FoodCell<>());
@@ -100,10 +94,8 @@ public class MealSubScene extends SubScene {
         sideInventory.setItems(PlayerBag.getSides());
         dessertInventory.setItems(PlayerBag.getDesserts());
 
-        root.add(drinkInventory, 0,5);
-        root.add(mainInventory, 1,5);
-        root.add(sideInventory, 2,5);
-        root.add(dessertInventory, 3,5);
+        addListeners();
+        setSprites();
 
     }
 
@@ -198,6 +190,18 @@ public class MealSubScene extends SubScene {
             makeDinner.setVisible(true);
         }
     }
+
+    private ImageView createImageBackground(){
+        ImageView node = new ImageView(getAssetLoader().loadImage("node.png"));
+        node.setPreserveRatio(true);
+        node.setFitWidth(64);
+        return node;
+    }
+
+    private ImageView createPlateNode(){
+        ImageView node = new ImageView(getSprite());
+        node.setPreserveRatio(true);
+        node.setFitWidth(64);
+        return node;
+    }
 }
-
-

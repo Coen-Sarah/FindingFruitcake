@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" prefHeight="34.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="inventory" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Inventory" HBox.hgrow="ALWAYS" />
+            <Label fx:id="cookBook" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="CookBook" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox fx:id="boxContainer" prefHeight="346.0" prefWidth="600.0">
+         <children>
+            <ScrollPane fx:id="scroll" HBox.hgrow="ALWAYS">
+              <content>
+                  <GridPane fx:id="container">
+                    <rowConstraints>
+                      <RowConstraints vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+              </content>
+            </ScrollPane>
+            <VBox fx:id="details" maxWidth="0.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

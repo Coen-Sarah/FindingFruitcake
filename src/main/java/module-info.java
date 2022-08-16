@@ -25,9 +25,12 @@ module com.example.findingfruitcake {
     opens assets.textures.food to com.almasb.fxgl.all;
     opens assets.levels to com.almasb.fxgl.all;
     opens assets.json to com.almasb.fxgl.all;
-    
+    opens assets.ui to com.almasb.fxgl.all;
+
+
     exports com.example.findingfruitcake;
-    exports com.example.findingfruitcake.scenes;
     opens com.example.findingfruitcake.scenes to javafx.fxml;
+    exports com.example.findingfruitcake.controller;
+    opens com.example.findingfruitcake.controller to javafx.fxml;
 
 }

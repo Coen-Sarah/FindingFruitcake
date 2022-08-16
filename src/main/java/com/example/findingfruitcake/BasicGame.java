@@ -9,13 +9,14 @@ import com.almasb.fxgl.physics.*;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyDef;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
+import com.almasb.fxgl.ui.UI;
 import com.example.findingfruitcake.model.*;
 import javafx.scene.input.KeyCode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 import static com.example.findingfruitcake.model.CookBook.getCookBook;
 import static com.example.findingfruitcake.model.Meal.getMeal;
 
@@ -50,6 +51,12 @@ public class BasicGame extends GameApplication {
             }
         });
     }
+
+    @Override
+    protected void initUI() {
+
+    }
+
 
     @Override
     protected void initInput() {
