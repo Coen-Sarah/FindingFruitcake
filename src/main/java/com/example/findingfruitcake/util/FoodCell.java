@@ -1,4 +1,4 @@
-package com.example.findingfruitcake;
+package com.example.findingfruitcake.util;
 
 import com.example.findingfruitcake.model.FoodItem;
 import javafx.scene.control.Label;

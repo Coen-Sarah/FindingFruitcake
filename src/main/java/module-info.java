@@ -29,8 +29,9 @@ module com.example.findingfruitcake {
 
 
     exports com.example.findingfruitcake;
-    opens com.example.findingfruitcake.scenes to javafx.fxml;
     exports com.example.findingfruitcake.controller;
     opens com.example.findingfruitcake.controller to javafx.fxml;
+    exports com.example.findingfruitcake.util;
+    opens com.example.findingfruitcake.util to javafx.fxml;
 
 }

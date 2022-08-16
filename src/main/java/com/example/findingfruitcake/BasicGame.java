@@ -9,7 +9,7 @@ import com.almasb.fxgl.physics.*;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyDef;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
-import com.almasb.fxgl.ui.UI;
+import com.example.findingfruitcake.controller.UIViewer;
 import com.example.findingfruitcake.model.*;
 import javafx.scene.input.KeyCode;
 

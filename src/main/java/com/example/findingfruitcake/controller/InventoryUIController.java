@@ -1,7 +1,6 @@
 package com.example.findingfruitcake.controller;
 
 import com.almasb.fxgl.ui.UIController;
-import com.example.findingfruitcake.UIViewer;
 import com.example.findingfruitcake.model.FoodItem;
 import com.example.findingfruitcake.model.PlayerBag;
 import javafx.event.EventHandler;

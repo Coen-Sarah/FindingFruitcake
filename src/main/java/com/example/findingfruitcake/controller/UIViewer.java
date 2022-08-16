@@ -1,10 +1,6 @@
-package com.example.findingfruitcake;
+package com.example.findingfruitcake.controller;
 
-import com.almasb.fxgl.inventory.view.InventoryView;
 import com.almasb.fxgl.ui.UI;
-import com.example.findingfruitcake.controller.CookBookController;
-import com.example.findingfruitcake.controller.InventoryUIController;
-import com.example.findingfruitcake.controller.MealController;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;

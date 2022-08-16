@@ -1,8 +1,7 @@
 package com.example.findingfruitcake.controller;
 
 import com.almasb.fxgl.ui.UIController;
-import com.example.findingfruitcake.FoodCell;
-import com.example.findingfruitcake.UIViewer;
+import com.example.findingfruitcake.util.FoodCell;
 import com.example.findingfruitcake.model.FoodItem;
 import com.example.findingfruitcake.model.Meal;
 import com.example.findingfruitcake.model.PlayerBag;
